@@ -1,0 +1,1893 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Wallet</title>
+    <style>
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Login Page Styles */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            padding: 20px;
+        }
+
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+            .login-box h1 {
+                margin-bottom: 30px;
+                color: #333;
+                font-size: 24px;
+            }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+            .input-group i {
+                position: absolute;
+                left: 15px;
+                color: #777;
+            }
+
+            .input-group input {
+                width: 100%;
+                padding: 15px 15px 15px 45px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+            .login-btn:hover {
+                background: #5a7df4;
+            }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+
+            .login-options a {
+                color: #6e8efb;
+                text-decoration: none;
+            }
+
+                .login-options a:hover {
+                    text-decoration: underline;
+                }
+
+        .social-login {
+            margin-top: 30px;
+        }
+
+            .social-login p {
+                margin-bottom: 15px;
+                color: #777;
+            }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+            .social-btn:hover {
+                transform: scale(1.1);
+            }
+
+            .social-btn.google {
+                background: #db4437;
+                color: white;
+            }
+
+            .social-btn.facebook {
+                background: #4267B2;
+                color: white;
+            }
+
+            .social-btn.apple {
+                background: #000;
+                color: white;
+            }
+
+        /* App Container Styles */
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: white;
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #6e8efb;
+            color: white;
+        }
+
+            header h1 {
+                font-size: 20px;
+                font-weight: 600;
+            }
+
+        .user-profile {
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+            .user-profile:hover {
+                transform: scale(1.1);
+            }
+
+        .wallet-balance {
+            padding: 20px;
+            background-color: #f8f9fa;
+            text-align: center;
+        }
+
+        .balance-display {
+            margin-bottom: 15px;
+        }
+
+        .amount {
+            font-size: 36px;
+            font-weight: 700;
+        }
+
+        .currency {
+            font-size: 18px;
+            color: #666;
+            margin-left: 5px;
+        }
+
+        .balance-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+            .balance-actions button {
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                background-color: #6e8efb;
+                color: white;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+                .balance-actions button:hover {
+                    background-color: #5a7df4;
+                    transform: translateY(-2px);
+                }
+
+        .main-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 12px;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+            .nav-item i {
+                font-size: 20px;
+                margin-bottom: 5px;
+            }
+
+            .nav-item.active {
+                color: #6e8efb;
+            }
+
+            .nav-item:hover {
+                transform: translateY(-3px);
+            }
+
+        .content-area {
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+            .content-section.active {
+                display: block;
+            }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .action-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+        }
+
+            .action-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                background-color: #f8f9fa;
+            }
+
+            .action-btn i {
+                font-size: 24px;
+                margin-bottom: 10px;
+                color: #6e8efb;
+            }
+
+        .transactions-list, .full-transactions-list {
+            margin-top: 15px;
+        }
+
+        .transaction-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.2s;
+        }
+
+            .transaction-item:hover {
+                background-color: #f8f9fa;
+            }
+
+        .transaction-details h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .transaction-details p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+        }
+
+            .transaction-amount.positive {
+                color: #4caf50;
+            }
+
+            .transaction-amount.negative {
+                color: #f44336;
+            }
+
+        .booking-card {
+            display: flex;
+            padding: 15px;
+            margin-bottom: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+            .booking-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .booking-icon {
+            font-size: 24px;
+            color: #6e8efb;
+            margin-right: 15px;
+        }
+
+        .booking-details h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .booking-details p {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .insurance-card {
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+            .insurance-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .insurance-status {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .insurance-status i {
+                color: #4caf50;
+                margin-right: 5px;
+            }
+
+            .insurance-status span {
+                font-size: 14px;
+                color: #4caf50;
+                font-weight: 600;
+            }
+
+        .insurance-details h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .insurance-details p {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .insurance-action {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+            .insurance-action:hover {
+                background-color: #5a7df4;
+                transform: translateY(-2px);
+            }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+            .close-modal:hover {
+                color: #f44336;
+                transform: scale(1.1);
+            }
+
+        .modal h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .currency-selector, .amount-input {
+            margin-bottom: 15px;
+        }
+
+            .currency-selector label, .amount-input label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+
+            .currency-selector select, .amount-input input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                transition: border-color 0.3s;
+            }
+
+                .currency-selector select:focus, .amount-input input:focus {
+                    border-color: #6e8efb;
+                    outline: none;
+                }
+
+        #confirm-add-funds {
+            width: 100%;
+            padding: 12px;
+            background-color: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+            #confirm-add-funds:hover {
+                background-color: #5a7df4;
+                transform: translateY(-2px);
+            }
+
+        /* Offline Indicator */
+        .offline-indicator {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #f44336;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            z-index: 1000;
+        }
+
+            .offline-indicator.show {
+                transform: translateY(0);
+            }
+
+        /* Service Modal Styles */
+        .service-modal {
+            max-width: 800px;
+            width: 90%;
+        }
+
+        .service-content {
+            margin: 20px 0;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            flex: 1;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 600;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+                transition: border-color 0.3s;
+            }
+
+                .form-group input:focus,
+                .form-group select:focus {
+                    border-color: #6e8efb;
+                    outline: none;
+                }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+            .search-container input {
+                flex: 1;
+                padding: 10px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+                transition: border-color 0.3s;
+            }
+
+                .search-container input:focus {
+                    border-color: #6e8efb;
+                    outline: none;
+                }
+
+            .search-container button {
+                padding: 10px 20px;
+                background: #6e8efb;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s, transform 0.2s;
+            }
+
+                .search-container button:hover {
+                    background: #5a7df4;
+                    transform: translateY(-2px);
+                }
+
+        .results-container {
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .result-item {
+            display: flex;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+            .result-item:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+
+        .flight-result {
+            justify-content: space-between;
+        }
+
+        .flight-info {
+            flex: 1;
+        }
+
+        .flight-airline {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .flight-times {
+            color: #666;
+        }
+
+        .flight-duration {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .flight-price {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0 20px;
+        }
+
+        .hotel-result {
+            gap: 20px;
+        }
+
+        .hotel-image {
+            width: 120px;
+            height: 90px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+        }
+
+        .hotel-details {
+            flex: 1;
+        }
+
+        .hotel-rating {
+            color: #ffb400;
+            margin: 5px 0;
+        }
+
+        .hotel-amenities {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+        }
+
+        .amenity {
+            background: #f5f5f5;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+
+        .hotel-price {
+            text-align: right;
+        }
+
+        .price-per-night {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .exchange-result {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .exchange-rate {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .exchange-amount {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        .activity-result {
+            gap: 20px;
+        }
+
+        .activity-image {
+            width: 120px;
+            height: 90px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+        }
+
+        .activity-details {
+            flex: 1;
+        }
+
+        .activity-rating {
+            color: #ffb400;
+            margin: 5px 0;
+        }
+
+        .activity-description {
+            color: #666;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .activity-price {
+            text-align: right;
+        }
+
+        .price-per-person {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .book-now, .exchange-now {
+            padding: 8px 15px;
+            background: #6e8efb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+            .book-now:hover, .exchange-now:hover {
+                background: #5a7df4;
+                transform: translateY(-2px);
+            }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background-color: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+            .toast.show {
+                transform: translateX(-50%) translateY(0);
+            }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .login-box {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+
+            .balance-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+                .balance-actions button {
+                    width: 100%;
+                }
+
+            .hotel-result, .activity-result {
+                flex-direction: column;
+            }
+
+            .hotel-image, .activity-image {
+                width: 100%;
+                height: 150px;
+            }
+
+            .hotel-price, .activity-price {
+                text-align: left;
+                margin-top: 10px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Login Page (shown by default) -->
+    <div id="login-page" class="login-container">
+        <div class="login-box">
+            <h1>Welcome to Travel Wallet</h1>
+            <form id="login-form">
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="login-email" placeholder="Email" required value="stmaphosa17@gmail.com">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="login-password" placeholder="Password" required value="password123">
+                </div>
+                <button type="submit" class="login-btn">Log In</button>
+                <div class="login-options">
+                    <a href="#" id="forgot-password">Forgot password?</a>
+                    <a href="#" id="sign-up">Sign up</a>
+                </div>
+                <div class="social-login">
+                    <p>Or log in with:</p>
+                    <div class="social-icons">
+                        <button type="button" class="social-btn google" id="google-login">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="social-btn facebook" id="facebook-login">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="social-btn apple" id="apple-login">
+                            <i class="fab fa-apple"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App (hidden until login) -->
+    <div id="app-container" class="app-container" style="display: none;">
+        <header>
+            <h1>Travel Wallet</h1>
+            <div class="user-profile">
+                <i class="fas fa-user-circle" id="logout-btn"></i>
+            </div>
+        </header>
+
+        <div class="wallet-balance">
+            <div class="balance-display">
+                <span class="amount">1,250.75</span>
+                <span class="currency">USD</span>
+            </div>
+            <div class="balance-actions">
+                <button id="add-funds">Add Funds</button>
+                <button id="send-money">Send Money</button>
+            </div>
+        </div>
+
+        <nav class="main-nav">
+            <button class="nav-item active" data-section="dashboard">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </button>
+            <button class="nav-item" data-section="transactions">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transactions</span>
+            </button>
+            <button class="nav-item" data-section="bookings">
+                <i class="fas fa-hotel"></i>
+                <span>Bookings</span>
+            </button>
+            <button class="nav-item" data-section="insurance">
+                <i class="fas fa-shield-alt"></i>
+                <span>Insurance</span>
+            </button>
+        </nav>
+
+        <main class="content-area">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="content-section active">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <button class="action-btn" id="book-flight-btn">
+                        <i class="fas fa-plane"></i>
+                        <span>Book Flight</span>
+                    </button>
+                    <button class="action-btn" id="find-hotel-btn">
+                        <i class="fas fa-hotel"></i>
+                        <span>Find Hotel</span>
+                    </button>
+                    <button class="action-btn" id="currency-exchange-btn">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Currency Exchange</span>
+                    </button>
+                    <button class="action-btn" id="activities-btn">
+                        <i class="fas fa-umbrella-beach"></i>
+                        <span>Activities</span>
+                    </button>
+                </div>
+
+                <h2>Recent Transactions</h2>
+                <div class="transactions-list">
+                    <!-- Transactions will be loaded here via JS -->
+                </div>
+            </section>
+
+            <!-- Transactions Section -->
+            <section id="transactions-section" class="content-section">
+                <h2>All Transactions</h2>
+                <div class="full-transactions-list">
+                    <!-- All transactions will be loaded here via JS -->
+                </div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookings-section" class="content-section">
+                <h2>Your Bookings</h2>
+                <div class="bookings-list">
+                    <!-- Bookings will be loaded here via JS -->
+                </div>
+            </section>
+
+            <!-- Insurance Section -->
+            <section id="insurance-section" class="content-section">
+                <h2>Travel Insurance</h2>
+                <div class="insurance-card">
+                    <div class="insurance-status active">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Active</span>
+                    </div>
+                    <div class="insurance-details">
+                        <h3>Global Travel Protection</h3>
+                        <p>Coverage until: <span id="insurance-end-date"></span></p>
+                        <p>Emergency funds: $10,000 available</p>
+                    </div>
+                    <button class="insurance-action" id="request-assistance-btn">Request Assistance</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="add-funds-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add Funds</h2>
+            <div class="currency-selector">
+                <label for="currency">Currency:</label>
+                <select id="currency">
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="GBP">GBP - British Pound</option>
+                    <option value="JPY">JPY - Japanese Yen</option>
+                </select>
+            </div>
+            <div class="amount-input">
+                <label for="amount">Amount:</label>
+                <input type="number" id="amount" placeholder="0.00">
+            </div>
+            <button id="confirm-add-funds">Add Funds</button>
+        </div>
+    </div>
+
+    <div id="send-money-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Send Money</h2>
+            <div class="form-group">
+                <label for="recipient-email">Recipient Email:</label>
+                <input type="email" id="recipient-email" placeholder="Enter recipient's email">
+            </div>
+            <div class="form-group">
+                <label for="send-amount">Amount:</label>
+                <input type="number" id="send-amount" placeholder="0.00">
+            </div>
+            <div class="form-group">
+                <label for="send-currency">Currency:</label>
+                <select id="send-currency">
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                    <option value="GBP">GBP - British Pound</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="send-message">Message (Optional):</label>
+                <input type="text" id="send-message" placeholder="Add a note">
+            </div>
+            <button id="confirm-send-money">Send Money</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast-notification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Current date setup
+            const currentDate = new Date();
+            const nextMonthDate = new Date();
+            nextMonthDate.setMonth(currentDate.getMonth() + 1);
+            const nextYearDate = new Date();
+            nextYearDate.setFullYear(currentDate.getFullYear() + 1);
+
+            // Format date as "Month Day, Year"
+            function formatDate(date) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return date.toLocaleDateString('en-US', options);
+            }
+
+            // Format date as "YYYY-MM-DD" for input fields
+            function formatDateInput(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
+            // Show toast notification
+            function showToast(message, duration = 3000) {
+                const toast = document.getElementById('toast-notification');
+                toast.textContent = message;
+                toast.classList.add('show');
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, duration);
+            }
+
+            // Login functionality
+            const loginPage = document.getElementById('login-page');
+            const appContainer = document.getElementById('app-container');
+            const loginForm = document.getElementById('login-form');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            // Check if user is already logged in (from localStorage)
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                loginPage.style.display = 'none';
+                appContainer.style.display = 'block';
+            }
+
+            // Handle login form submission
+            loginForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+
+                // Hardcoded credentials check
+                if (email === 'stmaphosa17@gmail.com' && password === 'password123') {
+                    // Store login state
+                    localStorage.setItem('isLoggedIn', 'true');
+
+                    // Hide login page and show app
+                    loginPage.style.display = 'none';
+                    appContainer.style.display = 'block';
+
+                    // Initialize the app after login
+                    init();
+
+                    // Show welcome toast
+                    showToast(`Welcome back, ${email.split('@')[0]}!`);
+                } else {
+                    showToast('Invalid credentials. Try stmaphosa17@gmail.com and password123');
+                }
+            });
+
+            // Social login buttons
+            document.getElementById('google-login').addEventListener('click', function () {
+                showToast('Signing in with Google...');
+                setTimeout(() => {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    loginPage.style.display = 'none';
+                    appContainer.style.display = 'block';
+                    init();
+                    showToast('Logged in with Google successfully!');
+                }, 1500);
+            });
+
+            document.getElementById('facebook-login').addEventListener('click', function () {
+                showToast('Signing in with Facebook...');
+                setTimeout(() => {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    loginPage.style.display = 'none';
+                    appContainer.style.display = 'block';
+                    init();
+                    showToast('Logged in with Facebook successfully!');
+                }, 1500);
+            });
+
+            document.getElementById('apple-login').addEventListener('click', function () {
+                showToast('Signing in with Apple...');
+                setTimeout(() => {
+                    localStorage.setItem('isLoggedIn', 'true');
+                    loginPage.style.display = 'none';
+                    appContainer.style.display = 'block';
+                    init();
+                    showToast('Logged in with Apple successfully!');
+                }, 1500);
+            });
+
+            // Handle logout
+            logoutBtn.addEventListener('click', function () {
+                localStorage.removeItem('isLoggedIn');
+                appContainer.style.display = 'none';
+                loginPage.style.display = 'flex';
+                showToast('Logged out successfully');
+
+                // Clear form fields
+                document.getElementById('login-email').value = 'stmaphosa17@gmail.com';
+                document.getElementById('login-password').value = 'password123';
+            });
+
+            // Forgot password link
+            document.getElementById('forgot-password').addEventListener('click', function (e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                if (email) {
+                    showToast(`Password reset link sent to ${email}`);
+                } else {
+                    showToast('Please enter your email first');
+                }
+            });
+
+            // Sign up link
+            document.getElementById('sign-up').addEventListener('click', function (e) {
+                e.preventDefault();
+                showToast('Redirecting to sign up page...');
+            });
+
+            // Sample transaction data with current dates
+            const transactions = [
+                {
+                    id: 1,
+                    description: "Hotel Booking",
+                    amount: -250.75,
+                    currency: "USD",
+                    date: formatDate(new Date(currentDate.getTime() - 3 * 24 * 60 * 60 * 1000)), // 3 days ago
+                    category: "accommodation"
+                },
+                {
+                    id: 2,
+                    description: "Currency Exchange",
+                    amount: 500.00,
+                    currency: "EUR",
+                    date: formatDate(new Date(currentDate.getTime() - 5 * 24 * 60 * 60 * 1000)), // 5 days ago
+                    category: "exchange"
+                },
+                {
+                    id: 3,
+                    description: "Restaurant",
+                    amount: -35.20,
+                    currency: "USD",
+                    date: formatDate(new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000)), // 1 week ago
+                    category: "food"
+                },
+                {
+                    id: 4,
+                    description: "Flight Ticket",
+                    amount: -420.00,
+                    currency: "USD",
+                    date: formatDate(new Date(currentDate.getTime() - 10 * 24 * 60 * 60 * 1000)), // 10 days ago
+                    category: "transport"
+                },
+                {
+                    id: 5,
+                    description: "Activity Booking",
+                    amount: -75.50,
+                    currency: "USD",
+                    date: formatDate(new Date(currentDate.getTime() - 2 * 24 * 60 * 60 * 1000)), // 2 days ago
+                    category: "activity"
+                }
+            ];
+
+            // Sample bookings data with current and future dates
+            const bookings = [
+                {
+                    id: 1,
+                    type: "hotel",
+                    title: "Grand Hotel",
+                    checkIn: new Date(currentDate.getTime() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+                    checkOut: new Date(currentDate.getTime() + 8 * 24 * 60 * 60 * 1000), // 8 days from now
+                    amount: 450.00,
+                    currency: "USD",
+                    status: "confirmed"
+                },
+                {
+                    id: 2,
+                    type: "flight",
+                    title: "Flight to Paris",
+                    departure: new Date(currentDate.getTime() + 5 * 24 * 60 * 60 * 1000), // 5 days from now
+                    return: new Date(currentDate.getTime() + 12 * 24 * 60 * 60 * 1000), // 12 days from now
+                    amount: 620.00,
+                    currency: "USD",
+                    status: "confirmed"
+                },
+                {
+                    id: 3,
+                    type: "activity",
+                    title: "City Tour",
+                    date: new Date(currentDate.getTime() + 6 * 24 * 60 * 60 * 1000), // 6 days from now
+                    amount: 75.50,
+                    currency: "USD",
+                    status: "confirmed"
+                }
+            ];
+
+            // DOM Elements
+            const navItems = document.querySelectorAll('.nav-item');
+            const contentSections = document.querySelectorAll('.content-section');
+            const addFundsBtn = document.getElementById('add-funds');
+            const sendMoneyBtn = document.getElementById('send-money');
+            const addFundsModal = document.getElementById('add-funds-modal');
+            const sendMoneyModal = document.getElementById('send-money-modal');
+            const closeModalBtns = document.querySelectorAll('.close-modal');
+            const confirmAddFundsBtn = document.getElementById('confirm-add-funds');
+            const confirmSendMoneyBtn = document.getElementById('confirm-send-money');
+            const transactionsList = document.querySelector('.transactions-list');
+            const fullTransactionsList = document.querySelector('.full-transactions-list');
+            const bookingsList = document.querySelector('.bookings-list');
+            const insuranceEndDate = document.getElementById('insurance-end-date');
+            const requestAssistanceBtn = document.getElementById('request-assistance-btn');
+            const quickActionButtons = {
+                bookFlight: document.getElementById('book-flight-btn'),
+                findHotel: document.getElementById('find-hotel-btn'),
+                currencyExchange: document.getElementById('currency-exchange-btn'),
+                activities: document.getElementById('activities-btn')
+            };
+
+            // Set insurance end date to next year
+            insuranceEndDate.textContent = formatDate(nextYearDate);
+
+            // Initialize the app
+            function init() {
+                // Load transactions
+                renderTransactions(transactions.slice(0, 3), transactionsList);
+                renderTransactions(transactions, fullTransactionsList);
+
+                // Load bookings
+                renderBookings(bookings);
+
+                // Set up navigation
+                setupNavigation();
+
+                // Set up modals
+                setupModals();
+
+                // Set up service worker for offline capabilities
+                setupServiceWorker();
+
+                // Check online status
+                updateOnlineStatus();
+                window.addEventListener('online', updateOnlineStatus);
+                window.addEventListener('offline', updateOnlineStatus);
+
+                // Set up quick action buttons
+                setupQuickActionButtons();
+            }
+
+            // Render transactions to the DOM
+            function renderTransactions(transactions, container) {
+                container.innerHTML = '';
+
+                transactions.forEach(transaction => {
+                    const transactionEl = document.createElement('div');
+                    transactionEl.className = 'transaction-item';
+
+                    const isPositive = transaction.amount >= 0;
+                    const sign = isPositive ? '+' : '';
+
+                    transactionEl.innerHTML = `
+                                <div class="transaction-details">
+                                    <h3>${transaction.description}</h3>
+                                    <p>${transaction.date} • ${transaction.category}</p>
+                                </div>
+                                <div class="transaction-amount ${isPositive ? 'positive' : 'negative'}">
+                                    ${sign}${transaction.currency} ${Math.abs(transaction.amount).toFixed(2)}
+                                </div>
+                            `;
+
+                    container.appendChild(transactionEl);
+                });
+            }
+
+            // Render bookings to the DOM
+            function renderBookings(bookings) {
+                bookingsList.innerHTML = '';
+
+                bookings.forEach(booking => {
+                    const bookingEl = document.createElement('div');
+                    bookingEl.className = 'booking-card';
+
+                    let icon, details;
+
+                    if (booking.type === 'hotel') {
+                        icon = '<i class="fas fa-hotel"></i>';
+                        details = `
+                                    <h3>${booking.title}</h3>
+                                    <p>Check-in: ${formatDate(booking.checkIn)}</p>
+                                    <p>Check-out: ${formatDate(booking.checkOut)}</p>
+                                    <p>Total: ${booking.currency} ${booking.amount.toFixed(2)}</p>
+                                `;
+                    } else if (booking.type === 'flight') {
+                        icon = '<i class="fas fa-plane"></i>';
+                        details = `
+                                    <h3>${booking.title}</h3>
+                                    <p>Departure: ${formatDate(booking.departure)}</p>
+                                    <p>Return: ${formatDate(booking.return)}</p>
+                                    <p>Total: ${booking.currency} ${booking.amount.toFixed(2)}</p>
+                                `;
+                    } else if (booking.type === 'activity') {
+                        icon = '<i class="fas fa-ticket-alt"></i>';
+                        details = `
+                                    <h3>${booking.title}</h3>
+                                    <p>Date: ${formatDate(booking.date)}</p>
+                                    <p>Total: ${booking.currency} ${booking.amount.toFixed(2)}</p>
+                                `;
+                    }
+
+                    bookingEl.innerHTML = `
+                                <div class="booking-icon">
+                                    ${icon}
+                                </div>
+                                <div class="booking-details">
+                                    ${details}
+                                </div>
+                            `;
+
+                    bookingsList.appendChild(bookingEl);
+                });
+            }
+
+            // Set up navigation between sections
+            function setupNavigation() {
+                navItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const sectionId = item.getAttribute('data-section');
+
+                        // Update active nav item
+                        navItems.forEach(navItem => navItem.classList.remove('active'));
+                        item.classList.add('active');
+
+                        // Show corresponding section
+                        contentSections.forEach(section => section.classList.remove('active'));
+                        document.getElementById(`${sectionId}-section`).classList.add('active');
+                    });
+                });
+            }
+
+            // Set up modal interactions
+            function setupModals() {
+                // Add Funds modal
+                addFundsBtn.addEventListener('click', () => {
+                    addFundsModal.style.display = 'flex';
+                });
+
+                // Send Money modal
+                sendMoneyBtn.addEventListener('click', () => {
+                    sendMoneyModal.style.display = 'flex';
+                });
+
+                // Close modals when clicking X
+                closeModalBtns.forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        this.closest('.modal').style.display = 'none';
+                    });
+                });
+
+                // Close modals when clicking outside
+                window.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('modal')) {
+                        e.target.style.display = 'none';
+                    }
+                });
+
+                // Confirm Add Funds
+                confirmAddFundsBtn.addEventListener('click', () => {
+                    const amount = parseFloat(document.getElementById('amount').value);
+                    const currency = document.getElementById('currency').value;
+
+                    if (amount && amount > 0) {
+                        showToast(`Successfully added ${currency} ${amount.toFixed(2)} to your wallet!`);
+                        addFundsModal.style.display = 'none';
+                        document.getElementById('amount').value = '';
+                    } else {
+                        showToast('Please enter a valid amount');
+                    }
+                });
+
+                // Confirm Send Money
+                confirmSendMoneyBtn.addEventListener('click', () => {
+                    const amount = parseFloat(document.getElementById('send-amount').value);
+                    const currency = document.getElementById('send-currency').value;
+                    const email = document.getElementById('recipient-email').value;
+
+                    if (!email) {
+                        showToast('Please enter recipient email');
+                        return;
+                    }
+
+                    if (amount && amount > 0) {
+                        showToast(`Sent ${currency} ${amount.toFixed(2)} to ${email}`);
+                        sendMoneyModal.style.display = 'none';
+                        document.getElementById('send-amount').value = '';
+                        document.getElementById('recipient-email').value = '';
+                    } else {
+                        showToast('Please enter a valid amount');
+                    }
+                });
+            }
+
+            // Set up service worker for offline capabilities
+            function setupServiceWorker() {
+                if ('serviceWorker' in navigator) {
+                    window.addEventListener('load', () => {
+                        navigator.serviceWorker.register('/sw.js').then(registration => {
+                            console.log('ServiceWorker registration successful');
+                        }).catch(err => {
+                            console.log('ServiceWorker registration failed: ', err);
+                        });
+                    });
+                }
+            }
+
+            // Update UI based on online/offline status
+            function updateOnlineStatus() {
+                const offlineIndicator = document.createElement('div');
+                offlineIndicator.className = 'offline-indicator';
+                offlineIndicator.textContent = 'Offline Mode - Changes will sync when online';
+                document.body.appendChild(offlineIndicator);
+
+                if (navigator.onLine) {
+                    offlineIndicator.classList.remove('show');
+                } else {
+                    offlineIndicator.classList.add('show');
+                }
+            }
+
+            // Set up quick action buttons
+            function setupQuickActionButtons() {
+                // Book Flight Button
+                quickActionButtons.bookFlight.addEventListener('click', function () {
+                    openServiceModal('Book a Flight', 'flights');
+                });
+
+                // Find Hotel Button
+                quickActionButtons.findHotel.addEventListener('click', function () {
+                    openServiceModal('Find a Hotel', 'hotels');
+                });
+
+                // Currency Exchange Button
+                quickActionButtons.currencyExchange.addEventListener('click', function () {
+                    openServiceModal('Currency Exchange', 'exchange');
+                });
+
+                // Activities Button
+                quickActionButtons.activities.addEventListener('click', function () {
+                    openServiceModal('Find Activities', 'activities');
+                });
+
+                // Request Assistance Button
+                requestAssistanceBtn.addEventListener('click', function () {
+                    showToast('Assistance request has been submitted. We will contact you shortly.');
+                });
+            }
+
+            // Function to open service modal
+            function openServiceModal(title, serviceType) {
+                // Create modal if it doesn't exist
+                let modal = document.getElementById('service-modal');
+                if (!modal) {
+                    modal = document.createElement('div');
+                    modal.id = 'service-modal';
+                    modal.className = 'modal';
+                    modal.innerHTML = `
+                                <div class="modal-content service-modal">
+                                    <span class="close-modal">&times;</span>
+                                    <h2>${title}</h2>
+                                    <div class="service-content" id="service-content"></div>
+                                    <div class="search-container">
+                                        <input type="text" id="service-search" placeholder="Search ${title.toLowerCase()}...">
+                                        <button id="search-btn">Search</button>
+                                    </div>
+                                    <div class="results-container" id="results-container"></div>
+                                </div>
+                            `;
+                    document.body.appendChild(modal);
+
+                    // Close modal when clicking X
+                    modal.querySelector('.close-modal').addEventListener('click', function () {
+                        modal.style.display = 'none';
+                    });
+
+                    // Close modal when clicking outside
+                    window.addEventListener('click', function (event) {
+                        if (event.target === modal) {
+                            modal.style.display = 'none';
+                        }
+                    });
+
+                    // Handle search
+                    modal.querySelector('#search-btn').addEventListener('click', function () {
+                        performServiceSearch(serviceType);
+                    });
+                }
+
+                // Update modal content based on service type
+                const serviceContent = modal.querySelector('#service-content');
+                switch (serviceType) {
+                    case 'flights':
+                        serviceContent.innerHTML = `
+                                    <div class="flight-search">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>From</label>
+                                                <input type="text" id="flight-from" placeholder="City or Airport">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>To</label>
+                                                <input type="text" id="flight-to" placeholder="City or Airport">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Departure</label>
+                                                <input type="date" id="flight-departure">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Return</label>
+                                                <input type="date" id="flight-return">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Passengers</label>
+                                                <select id="flight-passengers">
+                                                    <option value="1">1 Adult</option>
+                                                    <option value="2">2 Adults</option>
+                                                    <option value="3">3 Adults</option>
+                                                    <option value="4">4 Adults</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Class</label>
+                                                <select id="flight-class">
+                                                    <option value="economy">Economy</option>
+                                                    <option value="premium">Premium Economy</option>
+                                                    <option value="business">Business</option>
+                                                    <option value="first">First Class</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                        break;
+
+                    case 'hotels':
+                        serviceContent.innerHTML = `
+                                    <div class="hotel-search">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Destination</label>
+                                                <input type="text" id="hotel-destination" placeholder="City, Hotel, or Area">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Check-in</label>
+                                                <input type="date" id="hotel-checkin">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Check-out</label>
+                                                <input type="date" id="hotel-checkout">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Rooms</label>
+                                                <select id="hotel-rooms">
+                                                    <option value="1">1 Room</option>
+                                                    <option value="2">2 Rooms</option>
+                                                    <option value="3">3 Rooms</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Guests</label>
+                                                <select id="hotel-guests">
+                                                    <option value="1">1 Guest</option>
+                                                    <option value="2">2 Guests</option>
+                                                    <option value="3">3 Guests</option>
+                                                    <option value="4">4 Guests</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                        break;
+
+                    case 'exchange':
+                        serviceContent.innerHTML = `
+                                    <div class="exchange-search">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>From</label>
+                                                <select id="exchange-from">
+                                                    <option value="USD">US Dollar (USD)</option>
+                                                    <option value="EUR">Euro (EUR)</option>
+                                                    <option value="GBP">British Pound (GBP)</option>
+                                                    <option value="JPY">Japanese Yen (JPY)</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>To</label>
+                                                <select id="exchange-to">
+                                                    <option value="EUR">Euro (EUR)</option>
+                                                    <option value="USD">US Dollar (USD)</option>
+                                                    <option value="GBP">British Pound (GBP)</option>
+                                                    <option value="JPY">Japanese Yen (JPY)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Amount</label>
+                                                <input type="number" id="exchange-amount" placeholder="0.00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                        break;
+
+                    case 'activities':
+                        serviceContent.innerHTML = `
+                                    <div class="activities-search">
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Destination</label>
+                                                <input type="text" id="activities-destination" placeholder="City or Area">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label>Date</label>
+                                                <input type="date" id="activities-date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Category</label>
+                                                <select id="activities-category">
+                                                    <option value="all">All Activities</option>
+                                                    <option value="tours">Tours</option>
+                                                    <option value="adventure">Adventure</option>
+                                                    <option value="culture">Culture</option>
+                                                    <option value="food">Food & Drink</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                        break;
+                }
+
+                // Show the modal
+                modal.style.display = 'block';
+
+                // Set default dates
+                setDefaultDates(serviceType);
+            }
+
+            // Set default dates in forms
+            function setDefaultDates(serviceType) {
+                const today = new Date();
+                const tomorrow = new Date();
+                tomorrow.setDate(today.getDate() + 1);
+
+                const formatDateInput = (date) => date.toISOString().split('T')[0];
+
+                switch (serviceType) {
+                    case 'flights':
+                        document.getElementById('flight-departure').value = formatDateInput(today);
+                        document.getElementById('flight-return').value = formatDateInput(tomorrow);
+                        break;
+                    case 'hotels':
+                        document.getElementById('hotel-checkin').value = formatDateInput(today);
+                        document.getElementById('hotel-checkout').value = formatDateInput(tomorrow);
+                        break;
+                    case 'activities':
+                        document.getElementById('activities-date').value = formatDateInput(today);
+                        break;
+                }
+            }
+
+            // Perform search (simulated)
+            function performServiceSearch(serviceType) {
+                const resultsContainer = document.querySelector('#service-modal #results-container');
+                resultsContainer.innerHTML = '<div class="loading">Searching... Please wait</div>';
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    let resultsHTML = '';
+                    const randomResults = Math.floor(Math.random() * 5) + 3; // 3-7 results
+
+                    switch (serviceType) {
+                        case 'flights':
+                            resultsHTML = '<h3>Available Flights</h3>';
+                            for (let i = 0; i < randomResults; i++) {
+                                const price = Math.floor(Math.random() * 900) + 100;
+                                const duration = `${Math.floor(Math.random() * 10) + 1}h ${Math.floor(Math.random() * 60)}m`;
+                                resultsHTML += `
+                                            <div class="result-item flight-result">
+                                                <div class="flight-info">
+                                                    <div class="flight-airline">${['Delta', 'United', 'American', 'Lufthansa', 'Emirates'][i % 5]}</div>
+                                                    <div class="flight-times">
+                                                        <span>08:00</span> → <span>${10 + i}:${i * 10}</span>
+                                                    </div>
+                                                    <div class="flight-duration">${duration}</div>
+                                                </div>
+                                                <div class="flight-price">$${price}</div>
+                                                <button class="book-now">Book Now</button>
+                                            </div>
+                                        `;
+                            }
+                            break;
+
+                        case 'hotels':
+                            resultsHTML = '<h3>Available Hotels</h3>';
+                            for (let i = 0; i < randomResults; i++) {
+                                const price = Math.floor(Math.random() * 300) + 50;
+                                const rating = (Math.random() * 2 + 3).toFixed(1);
+                                resultsHTML += `
+                                            <div class="result-item hotel-result">
+                                                <div class="hotel-image" style="background-image: url('https://source.unsplash.com/random/200x150/?hotel,${i}')"></div>
+                                                <div class="hotel-details">
+                                                    <h4>${['Grand Hotel', 'Seaside Resort', 'Mountain Lodge', 'City Center Hotel', 'Boutique Inn'][i % 5]}</h4>
+                                                    <div class="hotel-rating">${'★'.repeat(Math.floor(rating))} (${rating})</div>
+                                                    <div class="hotel-amenities">
+                                                        <span class="amenity">WiFi</span>
+                                                        <span class="amenity">Pool</span>
+                                                        <span class="amenity">Restaurant</span>
+                                                    </div>
+                                                </div>
+                                                <div class="hotel-price">
+                                                    <div class="price-per-night">$${price}/night</div>
+                                                    <button class="book-now">Book Now</button>
+                                                </div>
+                                            </div>
+                                        `;
+                            }
+                            break;
+
+                        case 'exchange':
+                            const fromCurrency = document.getElementById('exchange-from').value;
+                            const toCurrency = document.getElementById('exchange-to').value;
+                            const amount = document.getElementById('exchange-amount').value || 100;
+
+                            // Simulated exchange rates
+                            const rates = {
+                                USD: { EUR: 0.85, GBP: 0.73, JPY: 110 },
+                                EUR: { USD: 1.18, GBP: 0.86, JPY: 130 },
+                                GBP: { USD: 1.37, EUR: 1.16, JPY: 150 },
+                                JPY: { USD: 0.0091, EUR: 0.0077, GBP: 0.0067 }
+                            };
+
+                            const rate = rates[fromCurrency]?.[toCurrency] || 1;
+                            const converted = (amount * rate).toFixed(2);
+
+                            resultsHTML = `
+                                        <h3>Currency Exchange</h3>
+                                        <div class="exchange-result">
+                                            <div class="exchange-rate">
+                                                1 ${fromCurrency} = ${rate.toFixed(4)} ${toCurrency}
+                                            </div>
+                                            <div class="exchange-amount">
+                                                ${amount} ${fromCurrency} = ${converted} ${toCurrency}
+                                            </div>
+                                            <button class="exchange-now">Exchange Now</button>
+                                        </div>
+                                    `;
+                            break;
+
+                        case 'activities':
+                            resultsHTML = '<h3>Available Activities</h3>';
+                            for (let i = 0; i < randomResults; i++) {
+                                const price = Math.floor(Math.random() * 100) + 15;
+                                const rating = (Math.random() * 2 + 3).toFixed(1);
+                                resultsHTML += `
+                                            <div class="result-item activity-result">
+                                                <div class="activity-image" style="background-image: url('https://source.unsplash.com/random/200x150/?activity,${i}')"></div>
+                                                <div class="activity-details">
+                                                    <h4>${['City Tour', 'Hiking Adventure', 'Cooking Class', 'Wine Tasting', 'Boat Cruise'][i % 5]}</h4>
+                                                    <div class="activity-rating">${'★'.repeat(Math.floor(rating))} (${rating})</div>
+                                                    <div class="activity-description">
+                                                        ${['Explore the city with a local guide', 'Experience nature at its finest', 'Learn to cook local dishes', 'Sample the finest regional wines', 'Enjoy a scenic cruise'][i % 5]}
+                                                    </div>
+                                                </div>
+                                                <div class="activity-price">
+                                                    <div class="price-per-person">From $${price}/person</div>
+                                                    <button class="book-now">Book Now</button>
+                                                </div>
+                                            </div>
+                                        `;
+                            }
+                            break;
+                    }
+
+                    resultsContainer.innerHTML = resultsHTML;
+
+                    // Add event listeners to "Book Now" buttons
+                    document.querySelectorAll('.book-now').forEach(button => {
+                        button.addEventListener('click', function () {
+                            showToast('Booking functionality would be implemented here!\nIn a real app, this would proceed to payment.');
+                        });
+                    });
+
+                    // Add event listener to "Exchange Now" button if it exists
+                    const exchangeButton = document.querySelector('.exchange-now');
+                    if (exchangeButton) {
+                        exchangeButton.addEventListener('click', function () {
+                            showToast('Currency exchange would be processed here!\nFunds would be converted in your wallet.');
+                        });
+                    }
+                }, 1500); // Simulate network delay
+            }
+
+            // Initialize the app if already logged in
+            if (localStorage.getItem('isLoggedIn') === 'true') {
+                init();
+            }
+        });
+    </script>
+</body>
+</html>
